@@ -1,7 +1,8 @@
-const DATA = {
+const DATA = [{
     title: 'Add new user',
     url: 'https://jsonplaceholder.typicode.com/users',
     method: 'POST',
+    description: 'test123',
     body: [
       {
         name: 'email',
@@ -21,6 +22,13 @@ const DATA = {
         pattern: '[0-9]{3}-[0-9]{3}-[0-9]{4}',
       },
     ],
+  },
+  {
+    title: 'Get users',
+    url: 'https://jsonplaceholder.typicode.com/users',
+    method: 'GET',
+    description: 'test321'
   }
+]
 
 export default DATA;

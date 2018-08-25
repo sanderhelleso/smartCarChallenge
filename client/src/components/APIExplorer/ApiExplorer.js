@@ -7,13 +7,22 @@ export default class ApiExplorer extends Component {
     constructor(props) {
         super(props);
 
-        // set the inital state of the component
-        this.state = {
-            title: DATA.title,
-            base_url: DATA.url,
-            method: DATA.method,
-            body: DATA.body
-        };
+        // set the inital state of the component to POST
+        DATA.forEach(request => {
+            switch (request.method) {
+                case 'POST':
+                    this.state = {
+                        title: request.title,
+                        description: request.description,
+                        base_url: request.url,
+                        method: request.method,
+                        body: request.body
+                    };
+                break;
+            }
+        });
+
+        this.setMethod = this.setMethod.bind(this);
     }
 
     // returns the keys of the component state to be used in other functions
@@ -21,11 +30,39 @@ export default class ApiExplorer extends Component {
         return Object.keys(this.state);
     }
 
+    renderAvailabeRequests() {
+        return DATA.map(request => {
+            return <option key={request.method} value={request.method}>{request.title}</option>
+        });
+    }
+
+    setMethod(e) {
+        DATA.forEach(request => {
+            if (request.method === e.target.value) {
+                this.setState({
+                    title: request.title,
+                    description: request.description,
+                    base_url: request.url,
+                    method: request.method,
+                    body: request.body
+                });
+            }
+        });
+
+        console.log(this.state);
+    }
+
     // renders the url / header section of the component
     renderURL() {
         const URLSECTION = 
         <section>
             <h2>{this.state.title}</h2>
+            <p>{this.state.description}</p>
+            <div className='input-field'>
+                <select id='select-method' className='browser-default' onChange={this.setMethod}>
+                    {this.renderAvailabeRequests()}
+                </select>
+            </div>
             <h4>{this.keys()[this.keys().indexOf('base_url')].split('_').join(' ').toUpperCase()}</h4>
             <h5>{this.state.base_url}</h5>
             <h4>{this.state.method}</h4>
@@ -36,18 +73,21 @@ export default class ApiExplorer extends Component {
 
     // renders the body section of the component
     renderBody() {
+        if (this.state.body === undefined) {
+            return null;
+        }
+        
         const BODY = 
         <section>
             <h4>{this.keys()[this.keys().indexOf('body')].toUpperCase()}</h4>
             {createInputFields(this.state.body)}
-            <button className='btn' type='submit'>Send Request</button>
         </section>
 
         /*  
             creates a specific input corresponding to the object data (email, tlf etc..)
     
-            allows for easy addition of elements due to how the function is structured 
-            map and howthe properties are set if they are present in the specific object
+            allows for easy addition of elements due to how the function is structured using
+            '.map' and how the properties are set if they are present in the specific object
         */
         function createInputFields(data) {
             return data.map(inputData => {
@@ -103,6 +143,7 @@ export default class ApiExplorer extends Component {
             <div className='container'>
                 {this.renderURL()}
                 {this.renderBody()}
+                <button className='btn' type='submit'>Send Request</button>
             </div>
         )
     }
