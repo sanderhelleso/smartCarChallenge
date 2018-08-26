@@ -23,6 +23,14 @@ npm run build
 npm start
 ```
 
+### Edit and modifying of component
+
+```
+Component state is set through data.js within the APIExplorer folder. Here you can easily add or remove methods, set placeholders etc.
+The APIExplorer component is state based and will rerender on changes done in the application.
+Static text aswell is set through objects for easier modifying of the app.
+```
+
 ## Built With
 
 * React
@@ -36,9 +44,17 @@ npm start
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
 
 ## Acknowledgments
 
 * Thanks to smartcar for a fun and challenging project
+
+## Notes
+
+<ul>
+  <li>Added some screenshots of the various stages of the application</li>
+  <li>Layout is based on a simpel and modern design, i tried to make it feel at home with the smartcar website</li>
+  <li>If you have issues running this locally please contact me ASAP</li>
+</ul>
 
