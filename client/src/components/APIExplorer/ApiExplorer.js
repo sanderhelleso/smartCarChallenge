@@ -34,7 +34,7 @@ export default class ApiExplorer extends Component {
         // set the inital state of the component to POST
         DATA.forEach(request => {
             switch (request.method) {
-                default:
+                case 'POST':
                     this.state = {
                         title: request.title,
                         description: request.description,
@@ -167,6 +167,7 @@ export default class ApiExplorer extends Component {
 
     // build the request body
     buildRequestBody(obj) {
+        // here we can controll the body of the various request methods
         switch (this.state.method) {
             case 'POST':
                 const form = Array.from(document.querySelector('#explorer-body').querySelectorAll('input'));
@@ -180,7 +181,7 @@ export default class ApiExplorer extends Component {
         }
     }
 
-    // update state when user submits form and  make request to specific endpoint
+    // update state when user submits form and make request to specific endpoint
     async sendRequest(e) {
 
         // prevent form from submiting
