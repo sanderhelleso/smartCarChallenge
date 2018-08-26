@@ -1,4 +1,5 @@
-const DATA = [{
+const DATA = [
+  {
     title: 'Add new user',
     url: 'https://jsonplaceholder.typicode.com/users',
     method: 'POST',
