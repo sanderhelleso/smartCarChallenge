@@ -4,10 +4,10 @@ Front End Code Challenge by Smartcar - Sander Hellesø
 
 ## Screenshots
 
-<img src=''https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot1.jpg alt='Screenshot 1'>
-<img src=''https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot2.jpg alt='Screenshot 2'>
-<img src=''https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot3.jpg alt='Screenshot 3'>
-<img src=''https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot4.jpg alt='Screenshot 4'>
+<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot1.jpg' alt='Screenshot 1'>
+<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot2.jpg' alt='Screenshot 2'>
+<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot3.jpg' alt='Screenshot 3'>
+<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot4.jpg' alt='Screenshot 4'>
 
 ## Features
 
