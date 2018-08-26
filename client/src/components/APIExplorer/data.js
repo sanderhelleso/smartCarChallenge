@@ -9,6 +9,7 @@ const DATA = [{
         type: 'email',
         max: 24,
         min: 3,
+        placeholder: 'jonh@doe.com'
       },
       {
         name: 'full-name',
@@ -20,6 +21,7 @@ const DATA = [{
         name: 'phone',
         type: 'tel',
         pattern: '[0-9]{3}-[0-9]{3}-[0-9]{4}',
+        placeholder: '133-700-1337'
       },
     ],
   },

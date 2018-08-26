@@ -1,3 +1,11 @@
+/* background for body */
+body {
+    background-color: #fafafa;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%233dc1e9' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%23664ee9' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%2300a7e8' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%235944d5' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%23008be4' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%234c3ac1' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%23006dda' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%233f30ae' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%23004bc8' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%2332269b' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%23441caa' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23251d88' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 .container {
     width: 85% !important;
 }
@@ -20,6 +28,8 @@
     margin: 3rem 0 3rem 0;
     padding: 2.25rem  3.5rem 3rem 2.25rem;
     box-shadow: 0px 9px 28px rgba(0, 0, 0, 0.09);
+    background-color: #ffffff;
+    border-radius: 12px;
 }
 
 #explorer-url-heading, #explorer-response-heading {
@@ -74,12 +84,13 @@
     font-size: 1rem;
 }
 
+/* style for required star */
 #required-star {
     font-size: 1.5rem;
     color: #ef5350;
 }
 
-/* label underline focus color */
+/* input underline focus color */
 input:focus {
     border-bottom: 1px solid #00e988 !important;
     box-shadow: 0 1px 0 0 #00e988 !important;
@@ -123,6 +134,7 @@ input:focus {
     transition: 0.3s ease-in-out;
 }
 
+/* status styles */
 #explorer-response-statuses .col .success {
     border: 1px solid #00e988;
     color: #00e988;
@@ -147,6 +159,7 @@ input:focus {
     font-size: 20px;
 }
 
+/* JSON formating style */
 .explorer-response-JSON {
     text-align: left;
 }
@@ -161,6 +174,7 @@ input:focus {
     display: none;
 }
 
+/* responsive style modifications */
 @media (max-width: 993px) {
     #explorer-response-statuses .col div {
         font-size: 16px;

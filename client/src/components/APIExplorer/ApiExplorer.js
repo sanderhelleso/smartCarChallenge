@@ -45,6 +45,7 @@ export default class ApiExplorer extends Component {
             }
         });
 
+        // bind event specific functions
         this.setMethod = this.setMethod.bind(this);
         this.sendRequest = this.sendRequest.bind(this);
     }
@@ -161,7 +162,8 @@ export default class ApiExplorer extends Component {
         return BODY;
     }
 
-    validateRequest(obj) {
+    // build the request body
+    buildRequestBody(obj) {
         switch (this.state.method) {
             case 'GET':
                 return null;
@@ -172,7 +174,7 @@ export default class ApiExplorer extends Component {
                     console.log(input.id)
                     obj[input.id] = input.value;
                 });
-            return obj;
+                return obj;
         }
     }
 
@@ -205,7 +207,7 @@ export default class ApiExplorer extends Component {
             const response = await axios({
                 method: this.state.method,
                 url: this.state.base_url,
-                body: this.validateRequest({}), // flow and validation of request
+                body: this.buildRequestBody({}), // flow and validation of request
                 json: true
             })
             setStatus('success');

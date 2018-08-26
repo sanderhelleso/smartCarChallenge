@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import 'materialize-css/dist/css/materialize.min.css';
 import 'animate.css';
 
+// app components
 import Header from './Header';
 import APIExplorer from './APIExplorer/ApiExplorer';
 
