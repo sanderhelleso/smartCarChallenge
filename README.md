@@ -2,12 +2,7 @@
 
 Front End Code Challenge by Smartcar - Sander Hellesø
 
-## Screenshots
-
-<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot1.jpg' alt='Screenshot 1'>
-<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot2.jpg' alt='Screenshot 2'>
-<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot3.jpg' alt='Screenshot 3'>
-<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/screenshot4.jpg' alt='Screenshot 4'>
+<img src='https://github.com/sanderhelleso/smartCarChallenge/blob/master/client/public/img/screenshots/video.gif' alt='GIF of application'>
 
 ## Features
 
@@ -61,8 +56,9 @@ This project is licensed under the MIT License
 ## Notes
 
 <ul>
-  <li>Added some screenshots of the various stages of the application</li>
+  <li>Added GIF displaying some of the various stages of the application</li>
   <li>Layout is based on a simpel and modern design, i tried to make it feel at home with the smartcar website</li>
+  <li>Added some minor usefull things like displaying and copying of auth token</li>
   <li>If you have issues running this locally please contact me ASAP</li>
 </ul>
 
