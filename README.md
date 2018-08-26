@@ -24,6 +24,7 @@ Front End Code Challenge by Smartcar - Sander Hellesø
 
 ```
 git clone https://github.com/sanderhelleso/smartCarChallenge.git
+cd smartCarChallenge
 cd client
 npm install
 npm run build
