@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
+import axios  from 'axios';
 
 // import the mock data
 import DATA from './data';
 
-const staticText = {
+// static text for easier modifying of text in component
+const STATICTXT = {
     button: 'send request',
-    response: 'response'
+    response: 'response',
+    intro: 'Go ahead and send a request, the result will appear here'
 };
+
+// possible statuses of the requests
+const STATUSES = [
+    {
+    pending: {
+        text: 'pending'
+    },
+    success: {
+        text: 'success'
+    },
+    error: {
+        text: 'failed'
+    }
+}];
 
 export default class ApiExplorer extends Component {
     constructor(props) {
@@ -22,13 +39,14 @@ export default class ApiExplorer extends Component {
                         base_url: request.url,
                         method: request.method,
                         body: request.body,
-                        response: false
+                        response: ''
                     };
                 break;
             }
         });
 
         this.setMethod = this.setMethod.bind(this);
+        this.sendRequest = this.sendRequest.bind(this);
     }
 
     // returns the keys of the component state to be used in other functions
@@ -36,12 +54,14 @@ export default class ApiExplorer extends Component {
         return Object.keys(this.state);
     }
 
+    // set the options available
     renderAvailabeRequests() {
         return DATA.map(request => {
             return <option key={request.method} value={request.method}>{request.title}</option>
         });
     }
 
+    // select and update component when selecting a method
     setMethod(e) {
         DATA.forEach(request => {
             if (request.method === e.target.value) {
@@ -54,8 +74,6 @@ export default class ApiExplorer extends Component {
                 });
             }
         });
-
-        console.log(this.state);
     }
 
     // renders the url / header section of the component
@@ -90,10 +108,10 @@ export default class ApiExplorer extends Component {
         </section>
 
         /*  
-            creates a specific input corresponding to the object data (email, tlf etc..)
+        creates a specific input corresponding to the object data (email, tlf etc..)
     
-            allows for easy addition of elements due to how the function is structured using
-            '.map' and how the properties are set if they are present in the specific object
+        allows for easy addition of elements due to how the function is structured using
+        '.map' and how the properties are set if they are present in the specific object
         */
         function createInputFields(data) {
             return data.map(inputData => {
@@ -113,8 +131,8 @@ export default class ApiExplorer extends Component {
                 </div>
 
                 /*
-                    check if the specific input field is required, if true we also render
-                    a '*' so it`s clear for the user that this field is required to enter
+                check if the specific input field is required, if true we also render
+                a '*' so it`s clear for the user that this field is required to enter
                 */
                 function isFieldRequired(bool) {
                     switch (bool) {
@@ -144,10 +162,65 @@ export default class ApiExplorer extends Component {
         return BODY;
     }
 
-    renderResponse() {
-        if (this.state.response === false) {
-            return `Go ahead and send a request, the result will appear here`;
+    async sendRequest() {
+        
+        /*// do form validation and show error message if true
+        const form = Array.from(document.querySelector('#explorer-body').querySelectorAll('input'));
+        console.log(this.state.method);*/
+
+        /* 
+        display the current status of the request to the user
+        (try network throtling at 3g to how this can be usefull for the user)
+        */
+        function setStatus(status) {
+            const statusElements = document.querySelectorAll('.status');
+            const currentStatusEle = document.querySelector(`#${status}`);
+            statusElements.forEach(element => {
+                element.className = 'status';
+            });
+            
+            // show current status after clearing the previous
+            currentStatusEle.classList.add(status);
         }
+
+        try {
+            setStatus('pending');
+            const response = await axios({
+                method: this.state.method,
+                url:'https://jsonplaceholder.typicode.com/users',
+                body: {
+                    name: 'sander',
+                    age: '22'
+                },
+                json: true
+            })
+            setStatus('success');
+            this.setState({
+                response: response
+            });
+            document.querySelector('#explorer-response-data').style.display = 'block';
+        } 
+        catch (error) {
+            setStatus('failed');
+            this.setState({
+                errors: `${error.name}: ${error.message}`
+            })
+        };
+    }
+
+    renderStatuses() {
+        return STATUSES.map(status => {
+            return Object.keys(status).map(key => {
+                const statusEle = 
+                <div key={key} className='col l4 m4 s12'>
+                    <div id={key} className='status'>
+                        {key}
+                    </div>
+                </div>
+
+                return statusEle;
+            });
+        });
     }
 
     render() {
@@ -157,13 +230,39 @@ export default class ApiExplorer extends Component {
                     <div id='explorer-request'>
                         {this.renderURL()}
                         {this.renderBody()}
-                        <button id='send-request-btn' className='btn' type='submit'>{staticText.button}</button>
+                        <button id='send-request-btn' className='btn' type='submit' onClick={this.sendRequest}>{STATICTXT.button}</button>
                     </div>
                 </div>
                 <div className='col l5 m12 s12'>
                     <div id='explorer-response' className='center-align'>
-                        <h2 id='explorer-response-heading'>{staticText.response}</h2>
-                        <p id='explorer-response-intro' className='grey-text lighten-1'>{this.renderResponse()}</p>
+                        <h2 id='explorer-response-heading'>{STATICTXT.response}</h2>
+                        <div id='explorer-response-statuses'>
+                            {this.renderStatuses()}
+                        </div>
+                        <div id='explorer-response-intro' className='grey-text lighten-1'>
+                            <p>{STATICTXT.intro}</p>
+                        </div>
+                        <h5 id='errors'>{this.state.errors}</h5>
+                        <div id='explorer-response-data' className='animated fadeIn'>
+                            {   
+                                JSON.stringify(this.state.response, null, '\t').split('\n').map((JSONLine) => {
+
+                                // formats JSON nice
+                                if (JSONLine.split('')[0] === '{' || JSONLine.split('')[0] === '}') {
+                                    return (
+                                        <div key={Math.random()} className='explorer-response-JSON'>
+                                            {JSONLine}
+                                        </div>
+                                    )
+                                }
+
+                                return (
+                                    <div key={Math.random()}className='explorer-response-JSON-string'>
+                                        {JSONLine}
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>

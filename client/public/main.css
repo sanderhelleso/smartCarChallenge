@@ -18,7 +18,7 @@
 
 #explorer-request, #explorer-response {
     margin: 3rem 0 3rem 0;
-    padding: 3rem  3.5rem 3rem 3.5rem;
+    padding: 2.25rem  3.5rem 3rem 2.25rem;
     box-shadow: 0px 9px 28px rgba(0, 0, 0, 0.09);
 }
 
@@ -96,15 +96,75 @@ input:focus {
     height: 50px;
 }
 
-#send-request-btn:hover, #send-request-btn:focus {
+#send-request-btn:hover {
     box-shadow: 0px 9px 28px rgba(0, 0, 0, 0.09);
+    background-color: #00e988;
+    color: #ffffff;
+
 }
 
 #explorer-response-intro {
     font-weight: 300;
     font-size: 14px;
-    max-width: 90%;
+    max-width: 70%;
     margin: 0 auto;
+    word-break: break-all;
+}
+
+#explorer-response-statuses .col div {
+    color: #dfdddd;
+    border: 0.5px solid #dfdddd;
+    height: 3rem;
+    line-height: 3rem;
+    margin: 1.5rem 0 1.5rem 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease-in-out;
+}
+
+#explorer-response-statuses .col .success {
+    border: 1px solid #00e988;
+    color: #00e988;
+    box-shadow: 0px 9px 28px rgba(0, 0, 0, 0.09);
+}
+
+#explorer-response-statuses .col .pending {
+    border: 1px solid #ffea00;
+    color: #ffea00;
+    box-shadow: 0px 9px 28px rgba(0, 0, 0, 0.09);
+}
+
+#explorer-response-statuses .col .failed {
+    border: 1px solid #ef5350;
+    color: #ef5350;
+    box-shadow: 0px 9px 28px rgba(0, 0, 0, 0.09);
+}
+
+#errors {
+    color: #ef5350;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.explorer-response-JSON {
+    text-align: left;
+}
+
+.explorer-response-JSON-string {
+    margin-left: 35px;
+    text-align: left;
+}
+
+#explorer-response-data {
+    word-break: break-all;
+    display: none;
+}
+
+@media (max-width: 993px) {
+    #explorer-response-statuses .col div {
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -114,6 +174,8 @@ input:focus {
 
     #explorer-request, #explorer-response {
         margin: 1.5rem 0 1.5rem 0;
+        padding: 2rem;
+
     }
 
     #app-header {

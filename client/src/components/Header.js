@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default class Header extends Component {
-  render() {
+    render() {
         return (
             <header id='app-header' className='center-align container'>
                 <img id='app-logo' src='/img/smartcar-black-symbol.png' alt='Smartcar-logo' />
