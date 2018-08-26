@@ -8,6 +8,8 @@ import DATA from './data';
 const STATICTXT = {
     button: 'send request',
     response: 'response',
+    token: 'Auth Token',
+    token_tooltip: 'hover to unblur, click to copy',
     intro: 'Go ahead and send a request, the result will appear here'
 };
 
@@ -48,6 +50,7 @@ export default class ApiExplorer extends Component {
         // bind event specific functions
         this.setMethod = this.setMethod.bind(this);
         this.sendRequest = this.sendRequest.bind(this);
+        this.copyToken = this.copyToken.bind(this);
     }
 
     // returns the keys of the component state to be used in other functions
@@ -202,9 +205,26 @@ export default class ApiExplorer extends Component {
             currentStatusEle.classList.add(status);
         }
 
+        // creates a random mock token
+        function getUserToken() {
+            let token = '';
+            const POSSIBLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for (let i = 0; i < 8; i++) {
+                token += POSSIBLE.charAt(Math.floor(Math.random() * POSSIBLE.length));
+            }
+
+            return `${token}-${new Date().getTime()}`;
+        }
+
         try {
+            let token = getUserToken();
             setStatus('pending');
             const response = await axios({
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
                 method: this.state.method,
                 url: this.state.base_url,
                 body: this.buildRequestBody({}), // flow and validation of request
@@ -212,9 +232,13 @@ export default class ApiExplorer extends Component {
             })
             setStatus('success');
             this.setState({
-                response: response
+                response: response,
+                token: token
             });
+
+            // display token and response to user
             document.querySelector('#explorer-response-data').style.display = 'block';
+            document.querySelector('#explorer-token').style.display = 'block';
         } 
         catch (error) {
             setStatus('error');
@@ -240,6 +264,29 @@ export default class ApiExplorer extends Component {
         });
     }
 
+    // copy auth token to clipboard
+    async copyToken(e) {
+        const toast = document.createElement('div');
+        toast.className = 'toast animated slideInDown';
+        try {
+            await navigator.clipboard.writeText(e.target.innerHTML);
+            toast.innerHTML = '🤘 Copying was successful!';
+        }
+        catch (error) {
+            toast.innerHTML = '👎 Copying failed!';
+        }
+
+        document.body.appendChild(toast);
+
+        // remove toast
+        setTimeout(() => {
+            toast.className = 'toast animated slideOutUp';
+            setTimeout(() => {
+                toast.remove();
+            }, 1000);
+        }, 3000);
+    }
+
     render() {
         return (
             <div className='container row'>
@@ -260,6 +307,11 @@ export default class ApiExplorer extends Component {
                         </div>
                         <div id='explorer-response-intro' className='grey-text lighten-1'>
                             <p>{STATICTXT.intro}</p>
+                        </div>
+                        <div id='explorer-token' className='animated fadeIn'>
+                            <h4 id='token-heading'>{STATICTXT.token}</h4>
+                            <h5 id='blur-token' className='noSelect' onClick={this.copyToken}>{this.state.token}</h5>
+                            <p id='blur-tooltip'>{STATICTXT.token_tooltip}</p>
                         </div>
                         <h5 id='errors'>{this.state.errors}</h5>
                         <div id='explorer-response-data' className='animated fadeIn'>

@@ -1,3 +1,14 @@
+/* class for text not to be selected or focused */
+.noSelect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+  }
+
 /* background for body */
 body {
     background-color: #fafafa;
@@ -16,12 +27,18 @@ body {
     position: relative;
 }
 
+#app-heading {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 #app-logo {
     opacity: 0.1;
     position: absolute;
     top: -20%;
     left: 50%;
     transform: translate(-50%);
+    z-index: -1;
 }
 
 #explorer-request, #explorer-response {
@@ -36,7 +53,8 @@ body {
     margin-top: 0px;
     font-size: 2.25rem;
     font-weight: 500;
-    text-transform: capitalize;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 #app-introduction {
@@ -73,6 +91,7 @@ body {
 #explorer-body-heading {
     font-size: 2rem;
     font-weight: 500;
+    letter-spacing: 1px;
 }
 
 #explorer-body input {
@@ -172,6 +191,51 @@ input:focus {
 #explorer-response-data {
     word-break: break-all;
     display: none;
+}
+
+#explorer-token {
+    display: none;
+    padding-bottom: 1rem;
+    border-bottom: 0.5px solid #eeeeee;
+}
+
+#token-heading {
+    font-size: 25px;
+}
+
+/* blur out token, unblur on hover */
+#blur-token {
+    font-size: 18px;
+    font-weight: 100;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 7.5px rgba(0,0,0,0.5);
+    color: transparent;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    letter-spacing: 1px;
+}
+
+#blur-token:hover {
+    text-shadow: none;
+    color: #9e9e9e;
+}
+
+#blur-tooltip {
+    font-size: 12px;
+    color: #9e9e9e;
+}
+
+/* simepl toast for showing copy to clipboard status */
+.toast {
+    max-height: 65px;
+    background-color: #221122;
+    color: #ffffff;
+    position: fixed !important;
+    bottom: 0 !important;
+    top: 0px !important;
+    margin-top: 0 !important;
+    min-width: 100%;
+    font-size: 20px;
 }
 
 /* responsive style modifications */
