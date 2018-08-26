@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const HEADERTXT = {
     heading: 'API Explorer',
-    intro: 'Welcome to the API-Explorer, an application built as a code challenge for Smartcar'
+    intro: 'Welcome to the API Explorer, an application built as a code challenge for Smartcar'
 
 };
 

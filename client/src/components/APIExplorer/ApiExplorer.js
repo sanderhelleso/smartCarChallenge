@@ -34,7 +34,7 @@ export default class ApiExplorer extends Component {
         // set the inital state of the component to POST
         DATA.forEach(request => {
             switch (request.method) {
-                case 'POST':
+                default:
                     this.state = {
                         title: request.title,
                         description: request.description,
@@ -168,9 +168,6 @@ export default class ApiExplorer extends Component {
     // build the request body
     buildRequestBody(obj) {
         switch (this.state.method) {
-            case 'GET':
-                return null;
-            
             case 'POST':
                 const form = Array.from(document.querySelector('#explorer-body').querySelectorAll('input'));
                 form.forEach(input => {
@@ -178,6 +175,9 @@ export default class ApiExplorer extends Component {
                     obj[input.id] = input.value;
                 });
                 return obj;
+            
+            default:
+                return null;
         }
     }
 
