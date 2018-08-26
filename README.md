@@ -57,7 +57,7 @@ This project is licensed under the MIT License
 
 <ul>
   <li>Added GIF displaying some of the various stages of the application</li>
-  <li>Layout is based on a simpel and modern design, i tried to make it feel at home with the smartcar website</li>
+  <li>Layout is based on a simpel and modern design, tried to make it feel at home with the smartcar website</li>
   <li>Added some minor usefull things like displaying and copying of auth token</li>
   <li>If you have issues running this locally please contact me ASAP</li>
 </ul>
