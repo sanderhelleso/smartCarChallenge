@@ -21,7 +21,7 @@ const STATUSES = [
         text: 'success'
     },
     error: {
-        text: 'failed'
+        text: 'error'
     }
 }];
 
@@ -116,11 +116,10 @@ export default class ApiExplorer extends Component {
         function createInputFields(data) {
             return data.map(inputData => {
                 // id for the specific input, used to set corresponding label
-                let id = `input-field-${inputData.name}`;
                 const INPUTS =
                  <div key={inputData.name}>
-                    <label htmlFor={id}>{`${formatLabels(inputData.name)} `}{isFieldRequired(inputData.required)}</label>
-                    <input id={id}
+                    <label htmlFor={inputData.name}>{`${formatLabels(inputData.name)} `}{isFieldRequired(inputData.required)}</label>
+                    <input id={inputData.name}
                         type={inputData.type}
                         min={inputData.min}
                         max={inputData.max}
@@ -162,15 +161,33 @@ export default class ApiExplorer extends Component {
         return BODY;
     }
 
-    async sendRequest() {
-        
-        /*// do form validation and show error message if true
-        const form = Array.from(document.querySelector('#explorer-body').querySelectorAll('input'));
-        console.log(this.state.method);*/
+    validateRequest(obj) {
+        switch (this.state.method) {
+            case 'GET':
+                return null;
+            
+            case 'POST':
+                const form = Array.from(document.querySelector('#explorer-body').querySelectorAll('input'));
+                form.forEach(input => {
+                    console.log(input.id)
+                    obj[input.id] = input.value;
+                });
+            return obj;
+        }
+    }
 
+    // update state when user submits form and  make request to specific endpoint
+    async sendRequest(e) {
+
+        // prevent form from submiting
+        e.preventDefault();
+
+        // remove intro as it`s no longer needed
+        STATICTXT.intro = '';
+        
         /* 
         display the current status of the request to the user
-        (try network throtling at 3g to how this can be usefull for the user)
+        (try network throtling at 3g to see how this can be usefull for the user)
         */
         function setStatus(status) {
             const statusElements = document.querySelectorAll('.status');
@@ -187,11 +204,8 @@ export default class ApiExplorer extends Component {
             setStatus('pending');
             const response = await axios({
                 method: this.state.method,
-                url:'https://jsonplaceholder.typicode.com/users',
-                body: {
-                    name: 'sander',
-                    age: '22'
-                },
+                url: this.state.base_url,
+                body: this.validateRequest({}), // flow and validation of request
                 json: true
             })
             setStatus('success');
@@ -201,13 +215,14 @@ export default class ApiExplorer extends Component {
             document.querySelector('#explorer-response-data').style.display = 'block';
         } 
         catch (error) {
-            setStatus('failed');
+            setStatus('error');
             this.setState({
                 errors: `${error.name}: ${error.message}`
             })
         };
     }
 
+    // renders the the possible statuses of a request
     renderStatuses() {
         return STATUSES.map(status => {
             return Object.keys(status).map(key => {
@@ -229,8 +244,10 @@ export default class ApiExplorer extends Component {
                 <div className='col l7 m12 s12'>
                     <div id='explorer-request'>
                         {this.renderURL()}
-                        {this.renderBody()}
-                        <button id='send-request-btn' className='btn' type='submit' onClick={this.sendRequest}>{STATICTXT.button}</button>
+                        <form onSubmit={this.sendRequest}>
+                            {this.renderBody()}
+                            <button id='send-request-btn' className='btn' type='submit'>{STATICTXT.button}</button>
+                        </form>
                     </div>
                 </div>
                 <div className='col l5 m12 s12'>
