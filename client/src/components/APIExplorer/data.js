@@ -2,7 +2,7 @@ const DATA = [{
     title: 'Add new user',
     url: 'https://jsonplaceholder.typicode.com/users',
     method: 'POST',
-    description: 'test123',
+    description: 'Add a new user to the endpoint',
     body: [
       {
         name: 'email',
@@ -27,7 +27,7 @@ const DATA = [{
     title: 'Get users',
     url: 'https://jsonplaceholder.typicode.com/users',
     method: 'GET',
-    description: 'test321'
+    description: 'Get all users from the endpoint'
   }
 ]
 
