@@ -171,7 +171,6 @@ export default class ApiExplorer extends Component {
             case 'POST':
                 const form = Array.from(document.querySelector('#explorer-body').querySelectorAll('input'));
                 form.forEach(input => {
-                    console.log(input.id)
                     obj[input.id] = input.value;
                 });
                 return obj;
